@@ -1,14 +1,6 @@
 /*
-Author:Jordan Boulanger
-Computer Networks - CPSC 5510
-Homework 1 - TCP "Finger" Client/Server
-*/
-
-/*
-References/Credits:
-Brain Hall
-http://beej.us/guide/bgnet/output/html/multipage/clientserver.html
---This was used as a reference for a basic tcp client server setup
+Author:Jordan Boulanger 
+CopyLeft/Use for learning
 */
 
 #include <stdio.h>
@@ -108,7 +100,7 @@ int main(void)
 		exit(1);
 	}
 
-	sa.sa_handler = sigchld_handler; // reap all dead processes
+	sa.sa_handler = sigchld_handler; // reap all dead 
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGCHLD, &sa, NULL) == -1) {
@@ -118,7 +110,7 @@ int main(void)
 
 	printf("server: waiting for connections...\n");
 
-	while(1) {  // main accept() loop
+	while(1) {  
 		sin_size = sizeof their_addr;
 		new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
 		if (new_fd == -1) {
@@ -126,17 +118,32 @@ int main(void)
 			continue;
 		}
 
-		if (!fork()) { // this is the child process
-			close(sockfd); // child doesn't need the listener
+		if (!fork()) { 
+			close(sockfd); /
+
+				char *msg = "hello from the server!";
+				int len, bytes;
+				int len = strlen(msg);
+				int bytes_left = len
+				int total_sent;
+				while(total_sent < len) {
+					int bytes_sent = send(sock_fd, msg+total_sent, bytes_left, 0);
+					if (n == -1) { return -1 }
+					bytes_left -= bytes_sent
+					total_sent += bytes_sent
+   				 }
+
+    			
+
 
 			if ((recv(sockfd, recieveBuffer, MAXDATASIZE-1, 0)) == -1) {
 	    		perror("recv");
 	    		exit(1);
 			}
-			printf("Recived Username: %s\n", recieveBuffer);
+			// client isn't sending anything for now
 			exit(0);
 		}
-		close(new_fd);  // parent doesn't need this
+		close(new_fd); 
 	}
 
 	return 0;
